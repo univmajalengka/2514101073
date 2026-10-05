@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofolio Shohibbb</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #0f172a;
+            color: #334155;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* CONTAINER BESAR */
+        .card-container {
+            display: flex;
+            background-color: #ffffff;
+            width: 95vw;          
+            max-width: 1200px;    
+            height: 85vh;         
+            min-height: 600px;
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+        }
+
+        /* SIDEBAR (KIRI) */
+        .sidebar {
+            width: 40%;
+            background-color: #0f172a;
+            color: #ffffff;
+            padding: 50px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border-right: 1px solid #1e293b;
+        }
+
+        .profile-section {
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .profile-img {
+            width: 110px;
+            height: 110px;
+            border-radius: 24px;
+            object-fit: cover;
+            border: 3px solid #38bdf8;
+            margin-bottom: 12px;
+        }
+
+        /* TOMBOL GANTI FOTO GALERI */
+        .btn-ganti-foto {
+            background-color: #1e293b;
+            color: #38bdf8;
+            border: 1px solid #38bdf8;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 25px;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-ganti-foto:hover {
+            background-color: #38bdf8;
+            color: #0f172a;
+        }
+
+        .sidebar h1 {
+            font-size: 26px;
+            color: #f8fafc;
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+
+        .sidebar p.role {
+            font-size: 14px;
+            color: #38bdf8;
+            font-weight: 600;
+            margin-bottom: 35px;
+        }
+
+        /* MENU NAVIGASI SIDEBAR */
+        .menu-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+        }
+
+        .menu-btn {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            padding: 14px 18px;
+            border-radius: 12px;
+            text-align: left;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 100%;
+        }
+
+        .menu-btn:hover {
+            color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .menu-btn.active {
+            background-color: #38bdf8;
+            color: #0f172a;
+        }
+
+        .sidebar-footer {
+            font-size: 13px;
+            color: #64748b;
+        }
+
+        /* KONTEN UTAMA (KANAN) */
+        .content {
+            width: 60%;
+            padding: 60px 50px;
+            overflow-y: auto;
+        }
+
+        /* MANAJEMEN HALAMAN */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .page-title {
+            font-size: 26px;
+            color: #0f172a;
+            margin-bottom: 24px;
+            font-weight: 700;
+        }
+
+        .text {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #475569;
+            margin-bottom: 25px;
+        }
+
+        /* ISIAN KONTEN */
+        .info-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 14px 0;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 15px;
+        }
+
+        .info-item span.label {
+            color: #64748b;
+            font-weight: 600;
+        }
+
+        .info-item span.value {
+            color: #0f172a;
+            font-weight: 500;
+        }
+
+        .project-item {
+            background-color: #f8fafc;
+            padding: 20px;
+            border-radius: 14px;
+            border-left: 5px solid #38bdf8;
+            margin-bottom: 16px;
+        }
+
+        .project-item h4 {
+            font-size: 17px;
+            color: #0f172a;
+            margin-bottom: 6px;
+        }
+
+        .project-item p {
+            font-size: 14px;
+            color: #64748b;
+            line-height: 1.5;
+        }
+
+        /* RESPONSIF HP */
+        @media (max-width: 850px) {
+            .card-container {
+                flex-direction: column;
+                height: auto;
+                width: 100%;
+            }
+            .sidebar, .content {
+                width: 100%;
+            }
+            .sidebar {
+                padding: 35px 25px;
+                border-right: none;
+                border-bottom: 1px solid #1e293b;
+            }
+            .content {
+                padding: 35px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card-container">
+        
+        <!-- SIDEBAR (KIRI) -->
+        <aside class="sidebar">
+            <div class="profile-section">
+                <!-- Elemen Gambar Profil -->
+                <img id="profile-img-preview" src="https://via.placeholder.com/150" alt="Foto Profil" class="profile-img">
+                
+                <!-- Input File Tersembunyi (Menghubungkan ke Galeri) -->
+                <input type="file" id="input-galeri" accept="image/*" style="display: none;">
+
+                <!-- Tombol untuk Memicu Pilihan Gambar -->
+                <button type="button" class="btn-ganti-foto" id="btn-pilih-foto">
+                    📷 Ganti Foto
+                </button>
+
+                <h1>Shohibbb</h1>
+                <p class="role">Web Developer / Designer</p>
+
+                <nav class="menu-list">
+                    <button class="menu-btn active" onclick="showPage('tentang', this)">Tentang Saya</button>
+                    <button class="menu-btn" onclick="showPage('biodata', this)">Biodata</button>
+                    <button class="menu-btn" onclick="showPage('portofolio', this)">Portofolio</button>
+                    <button class="menu-btn" onclick="showPage('kontak', this)">Kontak</button>
+                </nav>
+            </div>
+
+            <div class="sidebar-footer">
+                &copy; 2026 Personal Web
+            </div>
+        </aside>
+
+        <!-- KONTEN UTAMA (KANAN) -->
+        <main class="content">
+            
+            <!-- HALAMAN 1 -->
+            <div id="tentang" class="page active">
+                <h2 class="page-title">Tentang Saya</h2>
+                <p class="text">
+                    Halo! Saya seorang diri yang ingin berusaha memanfaatkan perkembangan zaman yaitu pengembang web yang menyukai desain simpel, bersih, dan fungsional.
+                </p>
+                <div class="project-item">
+                    <h4>Fokus Utama</h4>
+                    <p>Frontend Development, UI/UX Design, Responsive Layout</p>
+                </div>
+            </div>
+
+            <!-- HALAMAN 2 -->
+            <div id="biodata" class="page">
+                <h2 class="page-title">Biodata Pribadi</h2>
+                <div class="info-list">
+                    <div class="info-item">
+                        <span class="label">Nama Lengkap</span>
+                        <span class="value">Shohibbb</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">TTL</span>
+                        <span class="value">Majalengka, 06 Juni 2007</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Pendidikan</span>
+                        <span class="value">S1 Teknik Informatika</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Status</span>
+                        <span class="value">Freelancer</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HALAMAN 3 -->
+            <div id="portofolio" class="page">
+                <h2 class="page-title">Proyek Portofolio</h2>
+                <div class="project-item">
+                    <h4>Toko Online App</h4>
+                    <p>Aplikasi web penjualan produk berbasis HTML, CSS, dan JavaScript.</p>
+                </div>
+                <div class="project-item">
+                    <h4>Landing Page Produk</h4>
+                    <p>Halaman promosi produk dengan desain modern dan responsif.</p>
+                </div>
+            </div>
+
+            <!-- HALAMAN 4 -->
+            <div id="kontak" class="page">
+                <h2 class="page-title">Kontak Saya</h2>
+                <div class="info-list">
+                    <div class="info-item">
+                        <span class="label">Email</span>
+                        <span class="value">darojatshohibu@gmail.com</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">WhatsApp</span>
+                        <span class="value">+62 8229 8790 416</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Instagram</span>
+                        <span class="value">@555.hibbb</span>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+    </div>
+
+    <script>
+        // --- FITUR GANTI FOTO DARI GALERI ---
+        const inputGaleri = document.getElementById('input-galeri');
+        const btnPilihFoto = document.getElementById('btn-pilih-foto');
+        const profileImgPreview = document.getElementById('profile-img-preview');
+
+        // Klik tombol "Ganti Foto" akan membuka input galeri
+        btnPilihFoto.addEventListener('click', function() {
+            inputGaleri.click();
+        });
+
+        // Tampilkan foto dari galeri yang baru dipilih
+        inputGaleri.addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    profileImgPreview.src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // --- NAVIGASI HALAMAN ---
+        function showPage(pageId, btn) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(p => p.classList.remove('active'));
+
+            const buttons = document.querySelectorAll('.menu-btn');
+            buttons.forEach(b => b.classList.remove('active'));
+
+            document.getElementById(pageId).classList.add('active');
+            btn.classList.add('active');
+        }
+    </script>
+
+</body>
+</html>
